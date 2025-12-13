@@ -40,7 +40,8 @@ public class TeacherCourseAdapter
     public void onBindViewHolder(@NonNull VH h, int pos) {
         Course c = list.get(pos);
         h.txtTitle.setText(c.getTitle());
-        h.txtCode.setText(c.getCourseCode());
+        h.txtCode.setText("Course Code: " + c.getCourseCode());
+        h.txtCredit.setText("Credit: " + c.getCredit());
 
         h.itemView.setOnClickListener(v -> listener.onClick(c));
     }
@@ -51,12 +52,13 @@ public class TeacherCourseAdapter
     }
 
     static class VH extends RecyclerView.ViewHolder {
-        TextView txtTitle, txtCode;
+        TextView txtTitle, txtCode, txtCredit;
 
         VH(View v) {
             super(v);
             txtTitle = v.findViewById(R.id.txtTitle);
             txtCode = v.findViewById(R.id.txtCode);
+            txtCredit = v.findViewById(R.id.txtCredit);
         }
     }
 }

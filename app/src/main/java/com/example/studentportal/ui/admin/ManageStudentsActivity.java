@@ -24,6 +24,10 @@ public class ManageStudentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_students);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Manage Students");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         db = new MyDatabaseHelper(this);
         recyclerView = findViewById(R.id.recyclerStudents);

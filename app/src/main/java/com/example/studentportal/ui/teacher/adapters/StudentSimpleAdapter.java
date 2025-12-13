@@ -37,7 +37,7 @@ public class StudentSimpleAdapter
     public void onBindViewHolder(VH h, int i) {
         Student s = list.get(i);
         h.txtName.setText(s.getName());
-        h.txtReg.setText(s.getRegId());
+        h.txtReg.setText("Reg: " + s.getRegId());
         h.itemView.setOnClickListener(v -> listener.onClick(s));
     }
 

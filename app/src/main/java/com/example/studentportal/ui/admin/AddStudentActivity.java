@@ -21,6 +21,11 @@ public class AddStudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Add Student");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         name = findViewById(R.id.edName);
         email = findViewById(R.id.edEmail);
         phone = findViewById(R.id.edPhone);

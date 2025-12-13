@@ -26,6 +26,10 @@ public class UpdateStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);  // reuse the same layout
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Update Student");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         db = new MyDatabaseHelper(this);
 

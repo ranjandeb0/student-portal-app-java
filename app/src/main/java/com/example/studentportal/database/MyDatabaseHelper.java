@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.studentportal.models.Course;
+import com.example.studentportal.models.Result;
 import com.example.studentportal.models.Student;
 import com.example.studentportal.models.Teacher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -619,28 +621,56 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     new String[]{String.valueOf(studentId), String.valueOf(courseId)});
         }
     }
-    public List<Map<String, String>> getCoursesWithResult(int studentId) {
-        List<Map<String, String>> list = new ArrayList<>();
+    public List<Map<Course, Result>> getCoursesWithResult(int studentId) {
+
+        List<Map<Course, Result>> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor c = db.rawQuery(
-                "SELECT c.title, r.grade FROM courses c " +
-                        "JOIN enrollment e ON c.course_id=e.course_id " +
-                        "LEFT JOIN results r ON e.course_id=r.course_id " +
-                        "AND r.student_id=?",
+                "SELECT " +
+                        "c.course_id, c.title, c.course_code, c.credit, c.teacher_id, " +
+                        "r.marks, r.grade " +
+                        "FROM courses c " +
+                        "JOIN enrollment e ON c.course_id = e.course_id " +
+                        "LEFT JOIN results r ON c.course_id = r.course_id " +
+                        "AND r.student_id = ?",
                 new String[]{String.valueOf(studentId)}
         );
 
         while (c.moveToNext()) {
-            Map<String, String> map = new HashMap<>();
-            map.put("course", c.getString(0));
-            map.put("result",
-                    c.isNull(1) ? "Pending" : c.getString(1));
+
+            // ---- Course object ----
+            Course course = new Course(
+                    c.getInt(0),     // course_id
+                    c.getString(1),  // title
+                    c.getString(2),  // course_code
+                    c.getDouble(3),  // credit
+                    c.getInt(4)      // teacher_id
+            );
+
+            // ---- Result object (can be null) ----
+            Result result = null;
+
+            if (!c.isNull(6)) { // grade column
+                result = new Result(
+                        studentId,
+                        course.getCourseId(),
+                        c.isNull(5) ? null : c.getDouble(5), // marks
+                        c.getString(6)                       // grade
+                );
+            }
+
+            Map<Course, Result> map = new HashMap<>();
+            map.put(course, result); // result may be null = Pending
+
             list.add(map);
         }
+
         c.close();
         return list;
     }
+
+
 
 
 

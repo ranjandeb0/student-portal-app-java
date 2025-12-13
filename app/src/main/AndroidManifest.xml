@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_main"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_main"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentPortal">
         <activity android:name=".ui.teacher.TeacherProfileActivity"/>
@@ -50,12 +50,6 @@
             android:name=".ui.admin.AddStudentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.admin.AssignTeacherToCourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.admin.AssignStudentToCourseActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.admin.ManageCoursesActivity"
             android:exported="false" />
         <activity
@@ -83,9 +77,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

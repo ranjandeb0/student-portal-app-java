@@ -22,9 +22,11 @@ public class StudentProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("My Student Profile");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        getSupportActionBar().setTitle("My Profile");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int studentId = getIntent().getIntExtra("student_id", -1);
 

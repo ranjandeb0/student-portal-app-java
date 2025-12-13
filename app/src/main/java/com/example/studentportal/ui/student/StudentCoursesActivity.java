@@ -17,8 +17,10 @@ public class StudentCoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_courses);
 
-        getSupportActionBar().setTitle("My Courses");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("My Courses");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         int studentId = getIntent().getIntExtra("student_id", -1);
 
