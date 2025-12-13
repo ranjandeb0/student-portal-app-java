@@ -102,8 +102,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow("name")),
                     cursor.getString(cursor.getColumnIndexOrThrow("email")),
                     cursor.getString(cursor.getColumnIndexOrThrow("phone")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("password")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("username"))
+                    cursor.getString(cursor.getColumnIndexOrThrow("username")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("password"))
             );
             cursor.close();
             return t;
@@ -557,5 +557,91 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
+    public List<Course> getCoursesByTeacher(int teacherId) {
+        List<Course> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(
+                "SELECT * FROM courses WHERE teacher_id=?",
+                new String[]{String.valueOf(teacherId)}
+        );
+
+        while (c.moveToNext()) {
+            list.add(new Course(
+                    c.getInt(0),
+                    c.getString(1),
+                    c.getString(2),
+                    c.getDouble(3),
+                    c.getInt(4)
+            ));
+        }
+        c.close();
+        return list;
+    }
+    public List<Student> getStudentsByCourse(int courseId) {
+        List<Student> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(
+                "SELECT s.* FROM students s " +
+                        "JOIN enrollment e ON s.student_id=e.student_id " +
+                        "WHERE e.course_id=?",
+                new String[]{String.valueOf(courseId)}
+        );
+
+        while (c.moveToNext()) {
+            list.add(new Student(
+                    c.getInt(0),
+                    c.getString(1),
+                    c.getString(2),
+                    c.getString(3),
+                    c.getString(5),
+                    c.getString(4)
+            ));
+        }
+        c.close();
+        return list;
+    }
+    public void saveOrUpdateResult(int studentId, int courseId,
+                                   double marks, String grade) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("student_id", studentId);
+        cv.put("course_id", courseId);
+        cv.put("marks", marks);
+        cv.put("grade", grade);
+
+        long res = db.insert("results", null, cv);
+        if (res == -1) {
+            db.update("results", cv,
+                    "student_id=? AND course_id=?",
+                    new String[]{String.valueOf(studentId), String.valueOf(courseId)});
+        }
+    }
+    public List<Map<String, String>> getCoursesWithResult(int studentId) {
+        List<Map<String, String>> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.rawQuery(
+                "SELECT c.title, r.grade FROM courses c " +
+                        "JOIN enrollment e ON c.course_id=e.course_id " +
+                        "LEFT JOIN results r ON e.course_id=r.course_id " +
+                        "AND r.student_id=?",
+                new String[]{String.valueOf(studentId)}
+        );
+
+        while (c.moveToNext()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("course", c.getString(0));
+            map.put("result",
+                    c.isNull(1) ? "Pending" : c.getString(1));
+            list.add(map);
+        }
+        c.close();
+        return list;
+    }
+
+
 
 }

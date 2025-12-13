@@ -1,40 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
     <LinearLayout
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <TextView
-        android:text="Assign Teacher to Course"
+        android:text="Assign Result"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:paddingBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <Spinner
-        android:id="@+id/spinnerTeachers"
+    <EditText
+        android:id="@+id/edMarks"
+        android:hint="Marks"
+        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Spinner
-        android:id="@+id/spinnerCoursesAssign"
+    <EditText
+        android:id="@+id/edGrade"
+        android:hint="Grade"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"/>
+        android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/btnAssignTeacher"
-        android:text="Assign"
-        android:layout_marginTop="20dp"
+        android:id="@+id/btnSave"
+        android:text="Save Result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
 </LinearLayout>
 </LinearLayout>

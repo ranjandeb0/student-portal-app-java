@@ -3,9 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:padding="16dp">
-
+    android:fitsSystemWindows="true">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
         android:text="Manage Students"
         android:textSize="22sp"
@@ -18,4 +21,5 @@
         android:id="@+id/recyclerStudents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+</LinearLayout>
 </LinearLayout>

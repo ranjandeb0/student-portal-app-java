@@ -11,6 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentPortal">
+        <activity android:name=".ui.teacher.TeacherProfileActivity"/>
+        <activity android:name=".ui.teacher.TeacherCoursesActivity"/>
+        <activity android:name=".ui.teacher.SelectStudentForResultActivity"/>
+        <activity android:name=".ui.teacher.AddResultActivity"/>
+
+        <!-- Student -->
+        <activity android:name=".ui.student.StudentProfileActivity"/>
+        <activity android:name=".ui.student.StudentCoursesActivity"/>
         <activity
             android:name=".ui.admin.SelectCoursesForTeacherActivity"
             android:exported="false" />
