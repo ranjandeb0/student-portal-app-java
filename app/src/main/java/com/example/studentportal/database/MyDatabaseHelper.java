@@ -407,8 +407,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             Course course = new Course(
                     c.getInt(c.getColumnIndexOrThrow("course_id")),
-                    c.getString(c.getColumnIndexOrThrow("name")),
-                    c.getString(c.getColumnIndexOrThrow("code")),
+                    c.getString(c.getColumnIndexOrThrow("title")),
+                    c.getString(c.getColumnIndexOrThrow("course_code")),
                     c.getDouble(c.getColumnIndexOrThrow("credit")),
                     c.getInt(c.getColumnIndexOrThrow("teacher_id"))
             );

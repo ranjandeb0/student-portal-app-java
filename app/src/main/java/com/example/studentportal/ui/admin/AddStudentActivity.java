@@ -50,4 +50,9 @@ public class AddStudentActivity extends AppCompatActivity {
             if (success) finish();
         });
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }
